@@ -9,6 +9,7 @@ const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
   const [charactersInfo, setCharactersInfo] = useState([]); 
+  // console.log("App -> charactersInfo", charactersInfo)
 
   // Fetch characters from the API in an effect hook. Remember, anytime you have a 
   // side effect in a component, you want to think about which state and/or props it should
@@ -16,9 +17,7 @@ const App = () => {
   useEffect(() => {
     axios.get(`${BASE_URL}`)
       .then(response => {
-        console.log(response)
-        console.log(response.data.info.count)
-        setCharactersInfo(response.data)
+        setCharactersInfo(response.data.results)
       })
       .catch(error => {
         console.log(`could not fetch all characters`)
@@ -29,9 +28,16 @@ const App = () => {
   return (
     <div className="App">
       <h1 className="Header">Characters</h1>
-      <></>
-      <Character info={charactersInfo} />
-      
+      <div>
+        {
+          charactersInfo.map((character) => {
+            return (
+              <Character info={character} key={character.id}/>
+            )
+          })
+        }
+      </div>
+
     </div>
   );
 }

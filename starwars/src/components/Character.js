@@ -1,8 +1,8 @@
 // Write your Character component here
-
 import React from "react"
 
 export default function Character({ info }) {
+    console.log(info)
     if (!info) return <h3> Gathering character info...</h3>
     return (
         <div className='characterContainer'>
